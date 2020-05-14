@@ -17,12 +17,12 @@ pipeline {
     stage('Build') { 
       steps {
         sh 'GOOS=linux GOARCH=amd64 go build -o golambda lambdaYo.go'
-        sh 'zip lambdaYo.zip lambdaYo'
+        sh 'zip lambdaYo.go.zip lambdaYo.go'
       }
     }
     stage('Publish') { 
       steps { 
-        archiveArtifacts 'lambdaYo.zip'
+        archiveArtifacts 'lambdaYo.go.zip'
       }
     }
   }
