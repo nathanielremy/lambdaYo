@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Copy artifact') { 
       steps {
-        copyArtifacts filter: 'lambdaYo.zip', fingerprintArtifacts: true, projectName: 'lambdaYo', selector: lastSuccessful()
+        copyArtifacts filter: 'lambdaYo.zip', fingerprintArtifacts: true, projectName: 'lambdaYo.go', selector: lastSuccessful()
       }
     }
     stage('Create lambda with docker') {
