@@ -7,7 +7,7 @@ pipeline {
         copyArtifacts filter: 'lambdaYo.go.zip', fingerprintArtifacts: true, projectName: 'lambdaYo', selector: lastSuccessful()
       }
     }
-    stage('Create lambda with Docker') {
+    stage('Create lambda with docker') {
       steps {
         sh "docker run \
                 -v /home/vagrant/.aws:/root/.aws \
