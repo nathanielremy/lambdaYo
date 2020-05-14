@@ -1,0 +1,19 @@
+pipeline {
+  agent any
+  
+  stages {
+    stage('Copy artifact') { 
+      steps {
+        copyArtifacts filter: 'lambdaYo.zip', fingerprintArtifacts: true, projectName: 'lambdaYo', selector: lastSuccessful()
+      }
+    }
+    stage('Create lambda with docker') {
+      steps {
+        sh "docker run \
+                -v /home/vagrant/.aws:/root/.aws \
+                -v $HOME/workspace/lambdaBro:/aws \
+                -t amazon/aws-cli lambda create-function --function-name lambdaYo.go --zip-file fileb://lambdaYo.go.zip --handler lambdaYo.go --runtime go1.x --role arn:aws:iam::590007072818:role/lambdaYo"
+      }
+    }
+  }
+}
